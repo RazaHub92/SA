@@ -1,0 +1,17 @@
+{#
+| Variable         | Type       | Description                                                         |
+|------------------|------------|---------------------------------------------------------------------|
+| page             | object     |                                                                     |
+| page.title       | string     | *could be html                                                      |
+| page.slug        | string     | ex: "cat.show"                                                      |
+#}
+{# Oasis Glow – Ready for Salla import #}
+{% extends "layouts.master" %}
+{% block content %}
+    <div class="oasis-home-shell min-h-screen">
+    {% component home %}
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script defer src="{{ 'home.js' | asset }}"></script>
+{% endblock %}

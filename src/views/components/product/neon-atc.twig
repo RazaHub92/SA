@@ -1,0 +1,10 @@
+{#
+| Variable               | Type | Description |
+|------------------------|------|-------------|
+| component.pulse_enabled| bool | Neon pulse on CTA |
+| component.bar_label    | text | Optional line above bar |
+#}
+{# Oasis Glow – Ready for Salla import — visual bar is in single.twig (.oasis-neon-sticky-wrap) #}
+{% if component is defined and component.bar_label is defined and component.bar_label %}
+<div class="text-center text-xs text-amber-200/90 mb-2 font-arabic">{{ component.bar_label|raw }}</div>
+{% endif %}

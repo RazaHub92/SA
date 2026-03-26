@@ -1,0 +1,11 @@
+{#
+| Variable                 | Type    | Description |
+|--------------------------|---------|-------------|
+| component.show_frame     | bool    | Show glass frame (theme editor) |
+| component.tilt_intensity | int     | 1–20 |
+| product                  | Product | Present on product page |
+#}
+{# Oasis Glow – Ready for Salla import — gallery wrapper lives in product/single.twig; this block registers the component and aids accessibility when mounted. #}
+{% if product is defined %}
+<div class="sr-only" data-oasis-glass-card="{{ product.id }}" data-tilt-default="{{ component is defined ? component.tilt_intensity|default(12) : 12 }}">{{ product.name }}</div>
+{% endif %}

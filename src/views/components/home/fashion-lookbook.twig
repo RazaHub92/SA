@@ -1,0 +1,64 @@
+{#
+| Variable          | Type   | Description |
+|-------------------|--------|-------------|
+| component.slides  | array  | Lookbook items |
+| component.layout  | string | scroll or grid |
+#}
+{# Oasis Glow – Ready for Salla import #}
+{% set slides = component.slides|default([]) %}
+{% set layout_raw = component.layout %}
+{% set layout = layout_raw is iterable and layout_raw.value is defined ? layout_raw.value : (layout_raw|default('scroll')) %}
+<section class="s-block s-block--lookbook py-12 md:py-16">
+  <div class="container mb-6 flex items-end justify-between gap-4">
+    <h2 class="text-2xl md:text-3xl font-arabic font-semibold text-amber-100">
+      {{ component.section_title|default(trans('oasis.lookbook_title')) }}
+    </h2>
+  </div>
+
+  {% if layout == 'grid' %}
+    <div class="container">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+        {% for slide in slides %}
+          {% set url = slide['slides.url']|default('') %}
+          {% set link = url|length ? url : '#' %}
+          <a href="{{ link }}" class="group block rounded-2xl overflow-hidden glass oasis-bento-card oasis-float-on-scroll">
+            {% if slide['slides.image'] %}
+              <div class="aspect-[3/4] overflow-hidden">
+                <img src="{{ slide['slides.image'] }}"
+                     alt="{{ slide['slides.caption']|striptags }}"
+                     class="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                     loading="lazy"
+                     decoding="async"/>
+              </div>
+            {% endif %}
+            {% if slide['slides.caption'] %}
+              <div class="p-3 text-sm text-amber-50/95 font-[family-name:var(--font-ar)]">{{ slide['slides.caption']|raw }}</div>
+            {% endif %}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <div class="flex overflow-x-auto gap-4 pb-4 px-4 md:px-8 snap-x snap-mandatory">
+      {% for slide in slides %}
+        {% set url = slide['slides.url']|default('') %}
+        {% set link = url|length ? url : '#' %}
+        <a href="{{ link }}"
+           class="snap-center shrink-0 w-[78vw] min-w-[260px] max-w-sm rounded-2xl overflow-hidden glass oasis-bento-card oasis-float-on-scroll">
+          {% if slide['slides.image'] %}
+            <div class="aspect-[3/4] overflow-hidden">
+              <img src="{{ slide['slides.image'] }}"
+                   alt="{{ slide['slides.caption']|striptags }}"
+                   class="w-full h-full object-cover"
+                   loading="lazy"
+                   decoding="async"/>
+            </div>
+          {% endif %}
+          {% if slide['slides.caption'] %}
+            <div class="p-4 text-sm text-amber-50 font-arabic">{{ slide['slides.caption']|raw }}</div>
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>

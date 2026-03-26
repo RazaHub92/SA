@@ -1,0 +1,44 @@
+{#
+| Variable              | Type   | Description |
+|-----------------------|--------|-------------|
+| component             | object | Fields from twilight |
+| position              | int    | Block order |
+#}
+{# Oasis Glow – Ready for Salla import #}
+{% set hero_img = component.hero_image ?: theme.settings.get('oasis_hero_bg') ?: 'https://cdn.salla.sa/ZrBEO/MopzhoqpTkDObcKc8Q8n77AuydanfsGXdZO7iinH.jpg' %}
+{% set neon = theme.settings.get('oasis_neon_glow', true) %}
+<section class="s-block s-block--oasis-hero relative min-h-[92vh] flex items-center overflow-hidden oasis-float-on-scroll" aria-label="hero">
+  <div class="absolute inset-0 z-0 oasis-hero__bg bg-desert-night">
+    <img src="{{ hero_img }}"
+         alt=""
+         class="w-full h-full object-cover opacity-90"
+         loading="eager"
+         fetchpriority="high"
+         decoding="async"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-desert-night via-desert-night/70 to-transparent"></div>
+    <div class="absolute inset-0 oasis-pattern-bg opacity-30"></div>
+    <div class="oasis-hero__parallax absolute inset-0 pointer-events-none will-change-transform"></div>
+  </div>
+
+  <div class="container relative z-10 py-20 md:py-28">
+    <div class="max-w-3xl glass {{ neon ? 'shadow-neon-gold' : '' }} p-8 md:p-12 md:ml-0 rtl:md:mr-0">
+      <p class="font-arabic text-3xl md:text-5xl font-semibold leading-tight text-amber-50 mb-3 oasis-text-gradient">
+        {{ component.headline|default('اكتشف الفخامة الصحراوية') }}
+      </p>
+      {% if component.headline_en %}
+        <p class="text-lg md:text-2xl text-stone-200/90 font-light tracking-wide mb-6" lang="en">
+          {{ component.headline_en }}
+        </p>
+      {% endif %}
+      {% if component.subline %}
+        <p class="text-stone-300/90 mb-8 leading-relaxed font-arabic">
+          {{ component.subline|raw }}
+        </p>
+      {% endif %}
+      <a href="{{ component.cta_url|default('/') }}"
+         class="inline-flex items-center justify-center px-8 py-3 rounded-full border border-amber-400/50 bg-amber-400/10 text-amber-100 hover:bg-amber-400/20 transition {{ neon ? 'shadow-neon-gold animate-glow' : '' }} font-arabic">
+        {{ component.cta_label|default(trans('oasis.hero_cta')) }}
+      </a>
+    </div>
+  </div>
+</section>

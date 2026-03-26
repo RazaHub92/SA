@@ -1,0 +1,168 @@
+/* Oasis Glow – Ready for Salla import */
+.font-arabic {
+  font-family: var(--font-ar), var(--font-main), 'Segoe UI', Tahoma, sans-serif;
+}
+
+@layer utilities {
+  .glass {
+    @apply backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl;
+    box-shadow: 0 0 25px -5px rgba(250, 204, 21, 0.35), 0 0 10px -3px rgba(234, 179, 8, 0.25);
+  }
+
+  .glass-dark {
+    @apply backdrop-blur-md bg-black/20 border border-amber-400/30 rounded-2xl;
+    box-shadow: 0 0 25px -5px rgba(250, 204, 21, 0.25);
+  }
+
+  .glass-light {
+    @apply backdrop-blur-md bg-white/70 border border-stone-200/80 rounded-2xl shadow-lg;
+  }
+
+  .oasis-neon-glow {
+    box-shadow: 0 0 25px -5px rgba(250, 204, 21, 0.55), 0 0 10px -3px rgba(234, 179, 8, 0.45);
+  }
+
+  html:not(.dark) .glass {
+    @apply bg-white/80 border-stone-200/90;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .oasis-pattern-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l15 8.66v17.32L30 35l-15-8.66V8.66z' fill='%23facc15' fill-opacity='0.04' fill-rule='evenodd'/%3E%3C/svg%3E");
+  }
+
+  .oasis-text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-l from-amber-200 via-amber-400 to-yellow-200;
+  }
+}
+
+@layer components {
+  .oasis-body {
+    @apply antialiased text-stone-100 bg-desert-night;
+    font-family: var(--font-ar), var(--font-main), system-ui, sans-serif;
+  }
+
+  html:not(.dark) .oasis-body {
+    @apply text-stone-800 bg-stone-100;
+  }
+
+  .oasis-low-energy *,
+  .oasis-low-energy .animate-float,
+  .oasis-low-energy .animate-glow {
+    animation: none !important;
+    transition-duration: 0.15s !important;
+  }
+
+  .oasis-no-neon .oasis-neon-glow,
+  .oasis-no-neon .shadow-neon-gold {
+    box-shadow: none !important;
+  }
+}
+
+@keyframes oasis-parallax-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-2%, -1%, 0) scale(1.08);
+  }
+}
+
+.oasis-hero__bg {
+  animation: oasis-parallax-drift 28s ease-in-out infinite alternate;
+}
+
+.oasis-low-energy .oasis-hero__bg {
+  animation: none;
+}
+
+.oasis-bento-card {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+}
+
+.oasis-bento-card:hover {
+  transform: translateY(-4px);
+}
+
+.oasis-float-on-scroll {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.oasis-float-on-scroll.is-inview {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.oasis-sticky-atc-pulse .sticky-product-bar__btn {
+  animation: oasis-atc-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes oasis-atc-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 22px 4px rgba(250, 204, 21, 0.35);
+  }
+}
+
+.oasis-festive .oasis-festive-tint {
+  background: radial-gradient(ellipse at 50% 0%, rgba(250, 204, 21, 0.12), transparent 55%);
+}
+
+.oasis-cart-glass {
+  @apply backdrop-blur-md bg-white/5 border border-white/15 rounded-2xl;
+}
+
+html:not(.dark) .oasis-cart-glass {
+  @apply bg-white/90 border-stone-200/80;
+}
+
+.oasis-mega-pattern::before {
+  content: '';
+  @apply pointer-events-none absolute inset-0 opacity-[0.07] oasis-pattern-bg;
+}
+
+@layer components {
+  .oasis-header .sub-menu {
+    @apply backdrop-blur-md border border-amber-400/25 rounded-xl shadow-neon-gold-soft;
+    background: rgba(12, 10, 9, 0.92);
+  }
+  html:not(.dark) .oasis-header .sub-menu {
+    @apply bg-white/95 border-stone-200/90;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.oasis-home-shell .s-product-card-entry,
+.oasis-category-page .s-product-card-entry {
+  @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md transition-shadow duration-300;
+  box-shadow: 0 0 18px -6px rgba(250, 204, 21, 0.15);
+}
+
+html:not(.dark) .oasis-home-shell .s-product-card-entry,
+html:not(.dark) .oasis-category-page .s-product-card-entry {
+  @apply bg-white/90 border-stone-200/80;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.oasis-category-page .salla-filters,
+.oasis-cart-page #cart-summary-panel {
+  @apply bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl;
+}
+
+html:not(.dark) .oasis-category-page .salla-filters,
+html:not(.dark) .oasis-cart-page #cart-summary-panel {
+  @apply bg-white border-stone-200/80;
+}
+
+.s-block--testimonials {
+  @apply py-6;
+}
+
+.s-block--testimonials salla-reviews {
+  @apply block rounded-2xl border border-amber-400/25 p-4 md:p-6 glass-dark;
+}

@@ -1,0 +1,43 @@
+{#
+| Variable        | Type   | Description |
+|-----------------|--------|-------------|
+| component.cards | array  | Up to 8 cards |
+#}
+{# Oasis Glow – Ready for Salla import #}
+{% set cards = component.cards|default([]) %}
+{% set neon = theme.settings.get('oasis_neon_glow', true) %}
+<section class="s-block s-block--bento py-12 md:py-16 oasis-float-on-scroll" data-oasis-bento>
+  <div class="container">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 auto-rows-[minmax(160px,auto)]">
+      {% for card in cards %}
+        {% set i = loop.index0 %}
+        {% set span = i == 0 ? 'sm:col-span-2 sm:row-span-2 min-h-[280px]' : (i == 3 ? 'sm:col-span-2 lg:col-span-1' : '') %}
+        {% set glow = card['cards.glow_color']|default('#facc15') %}
+        <a href="{{ card['cards.link']|default('#') }}"
+           class="group relative overflow-hidden rounded-2xl border border-white/15 bg-white/5 oasis-bento-card {{ span }} oasis-float-on-scroll"
+           style="{{ neon ? 'box-shadow: 0 0 22px -6px ' ~ glow ~ '55;' : '' }}">
+          {% if card['cards.image'] %}
+            <img src="{{ card['cards.image'] }}"
+                 alt="{{ card['cards.title']|striptags }}"
+                 class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                 loading="lazy"
+                 decoding="async"/>
+          {% endif %}
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          <div class="relative z-10 h-full min-h-[140px] flex flex-col justify-end p-5">
+            <h3 class="font-arabic text-lg md:text-xl text-amber-50 font-semibold drop-shadow">
+              {{ card['cards.title']|raw }}
+            </h3>
+            {% if card['cards.subtitle'] %}
+              <p class="text-sm text-stone-300/90 mt-1 font-arabic">{{ card['cards.subtitle']|raw }}</p>
+            {% endif %}
+          </div>
+        </a>
+      {% else %}
+        <div class="col-span-full glass p-8 text-center text-stone-400">
+          {{ trans('oasis.bento_empty') }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
